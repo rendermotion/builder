@@ -1,0 +1,1 @@
+call pyuic UI_FacialRig.ui -o ../UI/facialRigForm.py
