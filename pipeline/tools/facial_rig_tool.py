@@ -3,10 +3,10 @@ import maya.cmds as cmds
 import maya.OpenMayaUI as mui
 from maya.app.general.mayaMixin import MayaQWidgetDockableMixin
 
-from PySide2.QtCore import *
-from PySide2.QtGui import *
-from PySide2.QtWidgets import *
-from shiboken2 import wrapInstance
+from PySide6.QtCore import *
+from PySide6.QtGui import *
+from PySide6.QtWidgets import *
+from shiboken6 import wrapInstance
 from builder.pipeline.tools.UI import facialRigForm
 import maya.mel as mel
 import os

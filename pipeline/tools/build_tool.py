@@ -1,11 +1,11 @@
 import maya.cmds as cmds
 import maya.OpenMayaUI as mui
 from maya.app.general.mayaMixin import MayaQWidgetDockableMixin
-from PySide2.QtCore import *
-from PySide2.QtGui import *
-from PySide2.QtWidgets import *
-from PySide2 import __version__
-from shiboken2 import wrapInstance
+from PySide6.QtCore import *
+from PySide6.QtGui import *
+from PySide6.QtWidgets import *
+from PySide6 import __version__
+from shiboken6 import wrapInstance
 from builder.pipeline.tools.UI import buildForm
 import maya.mel as mel
 from builder.pipeline.mgear import io
@@ -32,14 +32,16 @@ class BuildStep(QListWidgetItem):
         self.evaluate = None
 
     def toggle_item(self):
-        if int(self.flags() & Qt.ItemIsEnabled):
+        print(self.flags() & Qt.ItemIsEnabled)
+        if Qt.ItemIsEnabled in self.flags():
             self.setFlags(self.flags() & ~Qt.ItemIsEnabled)
         else:
             self.setFlags(self.flags() | Qt.ItemIsEnabled)
 
     @property
     def is_enabled(self):
-        if int(self.flags() & Qt.ItemIsEnabled):
+        print(self.flags() & Qt.ItemIsEnabled)
+        if Qt.ItemIsEnabled in self.flags():
             return True
         else:
             return False
