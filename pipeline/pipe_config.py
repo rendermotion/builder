@@ -1,15 +1,15 @@
 import os
-
-asset_list = ['Grandma', 'Ghost']
-project_path = 'Z:/06-CLASSE ANIMATION M2/Projects/bgb24/04-ASSETS'
-
-asset_path = 'bgb24_A_{}'
-model_path = 'bgb24_A_{}_Mod'
-rig_path = 'bgb24_A_{}_Rig'
+asset_list = ['male']
+asset_types = ['characters', 'props']
+project_path = 'C:/Users/danie/OneDrive/Rendermotion/Shortfilm2023/short_film/assets'
+asset_path = '{}'
+model_path = 'modeling'
+rig_path = 'rigging'
 data_path = f'{os.getlogin()}/data'
-publish_folder = '_published'
-modules_path = 'builder.rigBuilds'
+publish_folder = '_publish'
+modules_path = 'rigBuilds.assets'
 default_module = 'default_character'
-default_facial_definition = 'facial_definition'
-default_geo_definition = 'geo_definition'
+facial_definition = 'facial_definition'
+geo_definition = 'geo_definition'
+
 

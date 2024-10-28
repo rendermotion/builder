@@ -9,7 +9,6 @@ from shiboken6 import wrapInstance
 from builder.pipeline.tools.UI import buildForm
 import maya.mel as mel
 from builder.pipeline.mgear import io
-from builder.pipeline import environment
 from RMPY.core import data_save_load
 
 import importlib
@@ -58,7 +57,7 @@ class Main(MayaQWidgetDockableMixin, QDialog):
         self.env = environment.Environment()
         self.ui = buildForm.Ui_Form()
         self.ui.setupUi(self)
-        self.setWindowTitle('bgb Short Pipe')
+        self.setWindowTitle('Builder')
         self.ui.save_guides_button.clicked.connect(io.export_template)
         self.ui.save_skin_button.clicked.connect(data_save_load.save_skin_cluster)
         self.ui.load_skin_button.clicked.connect(data_save_load.load_skin_cluster)

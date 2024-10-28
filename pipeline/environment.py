@@ -11,7 +11,10 @@ except:
     from builder.pipeline import pipe_config
 
 importlib.reload(pipe_config)
-importlib.reload(pipe_config)
+
+print(f'config_path = {pipe_config.__file__}')
+print (pipe_config.modules_path)
+
 
 
 def max_number_in_string(test_string):
@@ -164,6 +167,7 @@ class Environment(object):
         return Path(self.model, self._publish_folder, latest_version_folder, filter_right_file(files_list))
     
     def import_environment_modules(self):
+        print(pipe_config.modules_path)
         self.asset_module = importlib.import_module(f'{pipe_config.modules_path}.{self.asset}')
 
         if 'inherit' in vars(self.asset_module):
@@ -224,8 +228,9 @@ class Environment(object):
 
 if __name__ == '__main__':
     env = Environment()
-    facial_definition = env.get_variables_from_path('facial_definition')
-    print(facial_definition)
+    env.import_environment_modules()
+    # facial_definition = env.get_variables_from_path('facial_definition')
+    # print(facial_definition)
     # print(env.rig)
     # print(env.model)
     # print(str(env.get_latest_version(modelling=True)))
