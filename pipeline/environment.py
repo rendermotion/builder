@@ -1,5 +1,4 @@
 import os
-from pathlib import Path
 import pymel.core as pm
 import importlib
 import pkgutil
@@ -125,9 +124,9 @@ class Environment(object):
         #     print(f'not  valid asset {asset_value}, needs to be inside {self.asset_list}')
 
     def _set_asset_type(self):
-        file_path = Path(pipe_config.project_path)
+        file_path = pipe_config.project_path
         asset_found = False
-        dir_list = [each for each in os.listdir(file_path) if os.path.isdir(Path(file_path, each))]
+        dir_list = [each for each in os.listdir(file_path) if os.path.isdir('{}\{}'.format(file_path, each))]
         for each_folder in dir_list:
             if self._asset_path.format(self._asset) in (os.listdir(file_path.joinpath(each_folder))):
                 self._asset_type = each_folder
@@ -138,11 +137,11 @@ class Environment(object):
 
     def get_latest_version(self, modelling=False, rigging=False):
         if modelling == True:
-            list_of_publish_dir = os.listdir(Path(self.model, self._publish_folder))
+            list_of_publish_dir = os.listdir('{}\{}'.format(self.model, self._publish_folder ))
         elif rigging == True:
-            list_of_publish_dir = os.listdir(Path(self.rig, self._publish_folder))
+            list_of_publish_dir = os.listdir('{}\{}'.format(self.rig, self._publish_folder))
         else:
-            list_of_publish_dir = os.listdir(Path(self.model, self._publish_folder))
+            list_of_publish_dir = os.listdir('{}\{}'.format(self.model, self._publish_folder))
         latest_version_folder = None
         index = 0
 
@@ -163,8 +162,8 @@ class Environment(object):
                 except:
                     pass
         print(f'{self.model=}, {self._publish_folder=}, {latest_version_folder=}')
-        files_list = os.listdir(Path(self.model, self._publish_folder, latest_version_folder))
-        return Path(self.model, self._publish_folder, latest_version_folder, filter_right_file(files_list))
+        files_list = os.listdir('{}\{}\{}'.format(self.model, self._publish_folder, latest_version_folder))
+        return '{}\{}\{}\{}'.format(self.model, self._publish_folder, latest_version_folder, filter_right_file(files_list))
     
     def import_environment_modules(self):
         print(pipe_config.modules_path)
