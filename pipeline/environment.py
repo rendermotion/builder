@@ -164,18 +164,20 @@ class Environment(object):
                         latest_version_folder = each
                 except:
                     pass
-        print(f'{self.model=}, {self._publish_folder=}, {latest_version_folder=}')
+        print('{}, {}, {}'.format(self.model, self._publish_folder, latest_version_folder))
         files_list = os.listdir('{}\{}\{}'.format(self.model, self._publish_folder, latest_version_folder))
         return '{}\{}\{}\{}'.format(self.model, self._publish_folder, latest_version_folder, filter_right_file(files_list))
     
     def import_environment_modules(self):
         print(pipe_config.modules_path)
-        self.asset_module = importlib.import_module(f'{pipe_config.modules_path}.{self.asset}')
+        self.asset_module = importlib.import_module('{}.{}'.format(pipe_config.modules_path, self.asset))
 
         if 'inherit' in vars(self.asset_module):
-            self.inherit_module = importlib.import_module(f'{pipe_config.modules_path}.{self.asset_module.inherit}')
+            self.inherit_module = importlib.import_module('{}.{}'.format(pipe_config.modules_path,
+                                                                         self.asset_module.inherit))
         else:
-            self.inherit_module = importlib.import_module(f'{pipe_config.modules_path}.{pipe_config.default_module}')
+            self.inherit_module = importlib.import_module('{}.{}'.format(pipe_config.modules_path,
+                                                                         pipe_config.default_module))
 
         importlib.reload(self.asset_module)
         importlib.reload(self.inherit_module)
@@ -183,12 +185,15 @@ class Environment(object):
         for each in pkgutil.iter_modules(self.asset_module.__path__):
             if not each.ispkg:
                 if each.name.split('_')[-1] == 'config':
-                    self.build_config_file = importlib.import_module(f'{self.asset_module.__name__}.{each.name}')
+                    self.build_config_file = importlib.import_module('{}.{}'.format(self.asset_module.__name__,
+                                                                                    each.name))
         if not self.build_config_file:
             for each in pkgutil.iter_modules(self.inherit_module.__path__):
                 if not each.ispkg:
                     if each.name.split('_')[-1] == 'config':
-                        self.build_config_file = importlib.import_module(f'{self.inherit_module.__name__}.{each.name}')
+                        self.build_config_file = importlib.import_module('{}.{}'.format(self.inherit_module.__name__,
+                                                                                         each.name
+                                                                                                  ))
 
         importlib.reload(self.build_config_file)
         return self.asset_module, self.inherit_module, self.build_config_file
@@ -202,23 +207,28 @@ class Environment(object):
         print(function_path.modules)
         if function_path.modules:
             try:
-                new_module = importlib.import_module(f'{self.asset_module.__name__}.{function_path.modules}')
+                new_module = importlib.import_module('{}.{}'.format(self.asset_module.__name__,
+                                                                    function_path.modules))
             except ModuleNotFoundError as e:
                 print('module not found {}'.format(e))
-                new_module = importlib.import_module(f'{self.inherit_module.__name__}.{function_path.modules}')
+                new_module = importlib.import_module('{}.{}'.format(self.inherit_module.__name__,
+                                                                    function_path.modules))
         else:
             try:
-                new_module = importlib.import_module(f'{self.asset_module.__name__}.{function_path.variable}')
+                new_module = importlib.import_module('{}.{}'.format(self.asset_module.__name__,
+                                                                    function_path.variable
+                                                                                          ))
                 return new_module
             except ModuleNotFoundError as e:
-                new_module = importlib.import_module(f'{self.inherit_module.__name__}.{function_path.variable}')
+                new_module = importlib.import_module('{}.{}'.format(self.inherit_module.__name__,
+                                                                    function_path.variable))
                 return new_module
 
         importlib.reload(new_module)
         if function_path.variable in dir(new_module):
             return getattr(new_module, function_path.variable)
         else:
-            new_module = importlib.import_module(f'{self.inherit_module.__name__}.{function_path.modules}')
+            new_module = importlib.import_module('{}.{}'.format(self.inherit_module.__name__, function_path.modules))
             importlib.reload(new_module)
             if function_path.variable in dir(new_module):
                 return getattr(new_module, function_path.variable)
