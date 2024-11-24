@@ -11,7 +11,7 @@ except:
 
 importlib.reload(pipe_config)
 
-print(f'config_path = {pipe_config.__file__}')
+print('config_path = {}'.format(pipe_config.__file__))
 print (pipe_config.modules_path)
 
 
@@ -79,21 +79,24 @@ class Environment(object):
         self._rig_path = pipe_config.rig_path
         self._publish_folder = pipe_config.publish_folder
         self._data_path = pipe_config.data_path
-        print(f'initializing... {self.env_node}')
+        print('initializing... {}'.format(self.env_node))
 
     @property
     def model(self):
-        return Path(self._project_path, self._asset_type, self._asset_path.format(self.asset),
-                    self._model_path.format(self.asset))
+        return '{}\{}\{}\{}'.format(self._project_path, self._asset_type,
+                                    self._asset_path.format(self.asset),
+                                    self._model_path.format(self.asset))
 
     @property
     def rig(self):
-        return Path(self._project_path, self._asset_type, self._asset_path.format(self.asset),
+        return '{}\{}\{}\{}'.format(self._project_path, self._asset_type,
+                                    self._asset_path.format(self.asset),
                     self._rig_path.format(self.asset))
 
     @property
     def data(self):
-        return Path(self._project_path, self._asset_type, self._asset_path.format(self.asset),
+        return '{}\{}\{}\{}\{}'.format(self._project_path, self._asset_type,
+                                    self._asset_path.format(self.asset),
                     self._rig_path.format(self.asset), self._data_path)
 
     @property
@@ -133,7 +136,7 @@ class Environment(object):
                 asset_found = True
 
         if not asset_found:
-            print(f'Asset not found {self._asset} on any folder on {file_path}')
+            print('Asset not found {} on any folder on {}'.format(self._asset, file_path))
 
     def get_latest_version(self, modelling=False, rigging=False):
         if modelling == True:
@@ -201,7 +204,7 @@ class Environment(object):
             try:
                 new_module = importlib.import_module(f'{self.asset_module.__name__}.{function_path.modules}')
             except ModuleNotFoundError as e:
-                print(f'module not found {e}')
+                print('module not found {}'.format(e))
                 new_module = importlib.import_module(f'{self.inherit_module.__name__}.{function_path.modules}')
         else:
             try:
@@ -220,8 +223,8 @@ class Environment(object):
             if function_path.variable in dir(new_module):
                 return getattr(new_module, function_path.variable)
             else:
-                print(f'couldnt import function  {function_path.variable}\n'
-                      f'from any of this paths {self.asset_module.__name__} {self.inherit_module.__name__}')
+                print('couldnt import function  {}\n'.format(function_path.variable),
+                      'from any of this paths {} {}'.format(self.asset_module.__name__, self.inherit_module.__name__))
                 print(dir(self.inherit_module))
 
 
