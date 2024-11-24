@@ -11,7 +11,7 @@ except:
 import pymel.core as pm
 from pathlib import Path
 import os
-importlib.reload(environment)
+reload(environment)
 
 
 def export_template():

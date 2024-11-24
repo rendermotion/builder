@@ -9,7 +9,7 @@ try:
 except:
     from builder.pipeline import pipe_config
 
-importlib.reload(pipe_config)
+reload(pipe_config)
 
 print('config_path = {}'.format(pipe_config.__file__))
 print (pipe_config.modules_path)
@@ -179,8 +179,8 @@ class Environment(object):
             self.inherit_module = importlib.import_module('{}.{}'.format(pipe_config.modules_path,
                                                                          pipe_config.default_module))
 
-        importlib.reload(self.asset_module)
-        importlib.reload(self.inherit_module)
+        reload(self.asset_module)
+        reload(self.inherit_module)
         self.build_config_file = None
         for each in pkgutil.iter_modules(self.asset_module.__path__):
             if not each.ispkg:
@@ -195,7 +195,7 @@ class Environment(object):
                                                                                          each.name
                                                                                                   ))
 
-        importlib.reload(self.build_config_file)
+        reload(self.build_config_file)
         return self.asset_module, self.inherit_module, self.build_config_file
 
     def get_variables_from_path(self, step_function):
@@ -224,12 +224,12 @@ class Environment(object):
                                                                     function_path.variable))
                 return new_module
 
-        importlib.reload(new_module)
+        reload(new_module)
         if function_path.variable in dir(new_module):
             return getattr(new_module, function_path.variable)
         else:
             new_module = importlib.import_module('{}.{}'.format(self.inherit_module.__name__, function_path.modules))
-            importlib.reload(new_module)
+            reload(new_module)
             if function_path.variable in dir(new_module):
                 return getattr(new_module, function_path.variable)
             else:

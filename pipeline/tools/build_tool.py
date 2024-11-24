@@ -17,11 +17,11 @@ from builder.pipeline import environment
 import os
 import pkgutil
 
-importlib.reload(io)
-importlib.reload(pipe_config)
-importlib.reload(environment)
-importlib.reload(buildForm)
-importlib.reload(data_save_load)
+reload(io)
+reload(pipe_config)
+reload(environment)
+reload(buildForm)
+reload(data_save_load)
 
 
 class BuildStep(QListWidgetItem):

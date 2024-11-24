@@ -18,8 +18,8 @@ from RMPY.snippets import blendshape_split
 import importlib
 from RMPY.rig import rigBlendShapeControls
 from RMPY.rig import rigFacial
-importlib.reload(blendshape_extraction)
-importlib.reload(blendshape_split)
+reload(blendshape_extraction)
+reload(blendshape_split)
 
 
 
