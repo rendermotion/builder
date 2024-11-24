@@ -19,22 +19,23 @@ def export_template():
     granny = environment.Environment()
     if not granny.data.exists():
         granny.data.mkdir(parents=True, exist_ok=True)
-    io.export_guide_template(f'{granny.data}/guides.json')
+    io.export_guide_template('{}/guides.json'.format(granny.data))
 
 
 def import_template():
     asset_env = environment.Environment()
-    file_path = Path(f'{asset_env.data}/guides.json')
-    if file_path.exists():
-        io.import_guide_template(f'{asset_env.data}/guides.json')
+    file_path = '{}/guides.json'.format(asset_env.data)
+
+    if os.path.exists(file_path):
+        io.import_guide_template('{}/guides.json'.format(asset_env.data))
     else:
-        print(f'no guides template found at path {file_path}')
+        print('no guides template found at path {}'.format(file_path))
 
 
 def build_from_data_guides():
     asset_env = environment.Environment()
-    file_path = Path(f'{asset_env.data}/guides.json')
-    if file_path.exists():
+    file_path = '{}/guides.json'.format(asset_env.data)
+    if os.path.exists(file_path):
         io.import_guide_template(f'{asset_env.data}/guides.json')
     else:
         print(f'no guides template found at path {file_path}')

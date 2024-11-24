@@ -130,7 +130,7 @@ class Main(MayaQWidgetDockableMixin, QDialog):
                 pm.duplicate(base_geo, name=current_item.text())
             self.check_button_pressed()
         else:
-            print(f"base object {base_geo} doesn't exists")
+            print("base object {} doesn't exists".format(base_geo))
 
     def link_all_dictionaries(self):
         if self.ui.PrefixLineEdit.isEnabled():
@@ -156,12 +156,12 @@ class Main(MayaQWidgetDockableMixin, QDialog):
                 array_prefix = "LR"
                 for eachPrefix in array_prefix:
                     for eachBlendShape in sorted(each_dic['blendShapes']):
-                        if not cmds.objExists(f'{eachPrefix}{eachBlendShape[1:]}{object_name_prefix}'):
-                            self.ui.listWidget.addItem(f'{eachPrefix}{eachBlendShape[1:]}{object_name_prefix}')
+                        if not cmds.objExists('{}{}{}'.format(eachPrefix, eachBlendShape[1:], object_name_prefix)):
+                            self.ui.listWidget.addItem('{}{}{}'.format(eachPrefix, eachBlendShape[1:], object_name_prefix))
             else:
                 for eachBlendShape in sorted(each_dic['blendShapes']):
-                    if not cmds.objExists(f'{eachBlendShape}{object_name_prefix}'):
-                        self.ui.listWidget.addItem(f'{eachBlendShape}{object_name_prefix}')
+                    if not cmds.objExists('{}{}'.format(eachBlendShape, object_name_prefix)):
+                        self.ui.listWidget.addItem('{}{}'.format(eachBlendShape, object_name_prefix))
 
 
 if __name__ == '__main__':
