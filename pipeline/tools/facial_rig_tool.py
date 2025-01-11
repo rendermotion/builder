@@ -20,6 +20,7 @@ from RMPY.rig import rigBlendShapeControls
 from RMPY.rig import rigFacial
 importlib.reload(blendshape_extraction)
 importlib.reload(blendshape_split)
+importlib.reload(environment)
 
 
 
