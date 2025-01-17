@@ -12,11 +12,6 @@ except:
 
 importlib.reload(pipe_config)
 
-print(f'config_path = {pipe_config.__file__}')
-print (pipe_config.modules_path)
-
-
-
 def max_number_in_string(test_string):
     match_object = re.split(r"([0-9]+)", test_string)
     match_list_no_digits = re.split(r"[0-9]+", test_string)
