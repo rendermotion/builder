@@ -192,7 +192,6 @@ class Environment(object):
         # from the path provided in Context
         self.import_environment_modules()
         function_path = ModuleSplit(step_function)
-        print(function_path.modules)
         if function_path.modules:
             try:
                 new_module = importlib.import_module(f'{self.asset_module.__name__}.{function_path.modules}')
@@ -202,13 +201,16 @@ class Environment(object):
         else:
             try:
                 new_module = importlib.import_module(f'{self.asset_module.__name__}.{function_path.variable}')
+                importlib.reload(new_module)
                 return new_module
             except ModuleNotFoundError as e:
                 new_module = importlib.import_module(f'{self.inherit_module.__name__}.{function_path.variable}')
+                importlib.reload(new_module)
                 return new_module
 
         importlib.reload(new_module)
         if function_path.variable in dir(new_module):
+            importlib.reload(new_module)
             return getattr(new_module, function_path.variable)
         else:
             new_module = importlib.import_module(f'{self.inherit_module.__name__}.{function_path.modules}')
