@@ -31,7 +31,7 @@ class BuildStep(QListWidgetItem):
         self.evaluate = None
 
     def toggle_item(self):
-        print(self.flags() & Qt.ItemIsEnabled)
+        # print(self.flags() & Qt.ItemIsEnabled)
         if Qt.ItemIsEnabled in self.flags():
             self.setFlags(self.flags() & ~Qt.ItemIsEnabled)
         else:
@@ -39,7 +39,7 @@ class BuildStep(QListWidgetItem):
 
     @property
     def is_enabled(self):
-        print(self.flags() & Qt.ItemIsEnabled)
+        #print(self.flags() & Qt.ItemIsEnabled)
         if Qt.ItemIsEnabled in self.flags():
             return True
         else:
@@ -103,8 +103,8 @@ class Main(MayaQWidgetDockableMixin, QDialog):
 
     def add_build_steps(self):
         self.env.import_environment_modules()
-        from pprint import pprint as pp
-        pp(self.env.build_config_file.build)
+        # from pprint import pprint as pp
+        # pp(self.env.build_config_file.build)
 
         if self.env.build_config_file:
             for each in self.env.build_config_file.build_order:

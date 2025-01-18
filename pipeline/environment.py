@@ -75,7 +75,7 @@ class Environment(object):
         self._rig_path = pipe_config.rig_path
         self._publish_folder = pipe_config.publish_folder
         self._data_path = pipe_config.data_path
-        print(f'initializing... {self.env_node}')
+        # print(f'initializing... {self.env_node}')
 
     @property
     def model(self):
@@ -157,12 +157,12 @@ class Environment(object):
                         latest_version_folder = each
                 except:
                     pass
-        print(f'{self.model=}, {self._publish_folder=}, {latest_version_folder=}')
+        # print(f'{self.model=}, {self._publish_folder=}, {latest_version_folder=}')
         files_list = os.listdir(Path(self.model, self._publish_folder, latest_version_folder))
         return Path(self.model, self._publish_folder, latest_version_folder, filter_right_file(files_list))
     
     def import_environment_modules(self):
-        print(pipe_config.modules_path)
+        # print(pipe_config.modules_path)
         self.asset_module = importlib.import_module(f'{pipe_config.modules_path}.{self.asset}')
 
         if 'inherit' in vars(self.asset_module):
