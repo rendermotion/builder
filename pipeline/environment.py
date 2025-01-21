@@ -75,6 +75,7 @@ class Environment(object):
         self._rig_path = pipe_config.rig_path
         self._publish_folder = pipe_config.publish_folder
         self._data_path = pipe_config.data_path
+        self.env_node.asset.get()
         # print(f'initializing... {self.env_node}')
 
     @property
@@ -127,7 +128,6 @@ class Environment(object):
             if self._asset_path.format(self._asset) in (os.listdir(file_path.joinpath(each_folder))):
                 self._asset_type = each_folder
                 asset_found = True
-
         if not asset_found:
             print(f'Asset not found {self._asset} on any folder on {file_path}')
 
@@ -140,8 +140,6 @@ class Environment(object):
             list_of_publish_dir = os.listdir(Path(self.model, self._publish_folder))
         latest_version_folder = None
         index = 0
-
-
         for each in list_of_publish_dir:
             if not latest_version_folder:
                 try:
@@ -225,11 +223,12 @@ class Environment(object):
 
 if __name__ == '__main__':
     env = Environment()
-    env.import_environment_modules()
+    print(env.data)
+    # env.import_environment_modules()
     # facial_definition = env.get_variables_from_path('facial_definition')
     # print(facial_definition)
     # print(env.rig)
-    # print(env.model)
+    # env.get_latest_version(modelling=True)
     # print(str(env.get_latest_version(modelling=True)))
     # import pymel.core as pm
     # pm.importFile(env.get_latest_version(modelling=True))
