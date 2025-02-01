@@ -32,6 +32,8 @@ def getMayaWindow():
 class Main(MayaQWidgetDockableMixin, QDialog):
     def __init__(self, parent=None):
         super(Main, self).__init__(parent=getMayaWindow())
+        self.red_color =QColor.fromRgb(200, 50, 50, 255)
+        self.green_color = QColor.fromRgb(30, 200, 30, 255)
         self.ui = facialRigForm.Ui_Form()
         self.ui.setupUi(self)
         self.setWindowTitle('FacialRig')
@@ -157,12 +159,28 @@ class Main(MayaQWidgetDockableMixin, QDialog):
                 array_prefix = "LR"
                 for eachPrefix in array_prefix:
                     for eachBlendShape in sorted(each_dic['blendShapes']):
+                        item = QListWidgetItem(f'{eachPrefix}{eachBlendShape[1:]}{object_name_prefix}')
+                        brush = QBrush()
                         if not cmds.objExists(f'{eachPrefix}{eachBlendShape[1:]}{object_name_prefix}'):
-                            self.ui.listWidget.addItem(f'{eachPrefix}{eachBlendShape[1:]}{object_name_prefix}')
+                            brush.setColor(self.red_color)
+                            brush.setStyle(Qt.SolidPattern)
+                        else:
+                            brush.setColor(self.green_color)
+                            brush.setStyle(Qt.SolidPattern)
+                        item.setForeground(brush)
+                        self.ui.listWidget.addItem(item)
             else:
                 for eachBlendShape in sorted(each_dic['blendShapes']):
+                    item = QListWidgetItem(f'{eachBlendShape}{object_name_prefix}')
+                    brush = QBrush()
                     if not cmds.objExists(f'{eachBlendShape}{object_name_prefix}'):
-                        self.ui.listWidget.addItem(f'{eachBlendShape}{object_name_prefix}')
+                        brush.setColor(self.red_color)
+                        brush.setStyle(Qt.SolidPattern)
+                    else:
+                        brush.setColor(self.green_color)
+                        brush.setStyle(Qt.SolidPattern)
+                    item.setForeground(brush)
+                    self.ui.listWidget.addItem(item)
 
 
 if __name__ == '__main__':
