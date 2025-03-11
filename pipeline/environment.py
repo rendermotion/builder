@@ -80,6 +80,9 @@ class Environment(object):
 
     @property
     def model(self):
+        print(self._project_path)
+        print(self._asset_type)
+        print(self._asset_path.format(self.asset))
         return Path(self._project_path, self._asset_type, self._asset_path.format(self.asset),
                     self._model_path.format(self.asset))
 
@@ -223,12 +226,12 @@ class Environment(object):
 
 if __name__ == '__main__':
     env = Environment()
-    print(env.data)
+    # print(env.data)
     # env.import_environment_modules()
     # facial_definition = env.get_variables_from_path('facial_definition')
     # print(facial_definition)
     # print(env.rig)
-    # env.get_latest_version(modelling=True)
+    env.get_latest_version(modelling=True)
     # print(str(env.get_latest_version(modelling=True)))
     # import pymel.core as pm
     # pm.importFile(env.get_latest_version(modelling=True))
